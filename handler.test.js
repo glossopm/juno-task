@@ -10,13 +10,14 @@ const context = {
 }
 
 describe('Handler', () => {
-  it('Parses the event data into JSON', () => {
+  it('Parses the event data into JSON and filters out non-OMS orders', () => {
     const data = handler(event, context)
 
     const { ORDERS: orders } = data
-    expect(orders.length).toEqual(3)
+    expect(orders.length).toEqual(2)
 
-    const [order] = orders
-    expect(order.O_ID).toEqual('12345')
+    const [order1, order2] = orders
+    expect(order1.O_ID).toEqual('12345')
+    expect(order2.O_ID).toEqual('500324412')
   })
 })
